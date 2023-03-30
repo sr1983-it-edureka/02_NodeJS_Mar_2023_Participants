@@ -23,4 +23,5 @@ function listenHandler(){
   console.log("Server started....")
 }
 
-app.listen(8888, listenHandler);
+const PORT = process.env.PORT;
+app.listen(PORT, listenHandler);

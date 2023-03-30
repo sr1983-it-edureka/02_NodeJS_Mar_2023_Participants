@@ -1,0 +1,4 @@
+set BUNDLE_NAME=NodeJS_Mar_2023_Participants-Day-05.7z
+
+
+7z a -t7z %BUNDLE_NAME% -x!.git -x!_Environments  -x!01-Basics\external-modules-demo\sample-nodejs\node_modules -x!02-Web-Apps\01-simple-web-app\node_modules -x!02-Web-Apps\02-courses-web-app\node_modules -x!01-Basics\uuid-demo\node_modules .\*
