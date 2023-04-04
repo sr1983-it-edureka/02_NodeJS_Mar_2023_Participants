@@ -1,0 +1,5 @@
+{
+  "PORT" : 6666,
+  "MONGODB_URL" : "mongodb+srv://mongodb-user:password_12345@cluster0.dxlrj6w.mongodb.net/sample?retryWrites=true&w=majority",
+  "LOGGING_ENABLED" : true
+  }

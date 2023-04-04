@@ -1,4 +1,4 @@
-set BUNDLE_NAME=NodeJS_Mar_2023_Participants-Day-05.7z
+set BUNDLE_NAME=NodeJS_Mar_2023_Participants-Day-08.7z
 
 
-7z a -t7z %BUNDLE_NAME% -x!.git -x!_Environments  -x!01-Basics\external-modules-demo\sample-nodejs\node_modules -x!02-Web-Apps\01-simple-web-app\node_modules -x!02-Web-Apps\02-courses-web-app\node_modules -x!01-Basics\uuid-demo\node_modules .\*
+7z a -t7z %BUNDLE_NAME% -x!.git -x!_Environments  -x!01-Basics\external-modules-demo\sample-nodejs\node_modules -x!02-Web-Apps\01-simple-web-app\node_modules -x!02-Web-Apps\02-courses-web-app\node_modules -x!01-Basics\uuid-demo\node_modules -x!02-Web-Apps\03-LMS-MVC\node_modules -x!01-Basics\EnvVars-Configuration\03-configuration-demo\node_modules -x!04-MongoDB-Integration\01-mongodb-demo\node_modules -x!05-Security\01-Projects-App\node_modules .\*

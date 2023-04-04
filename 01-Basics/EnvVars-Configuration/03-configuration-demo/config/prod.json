@@ -1,0 +1,6 @@
+{
+  "PORT" : 9999,
+  "MONGODB_URL" : "mongodb+srv://mongodb-user:password_12345@cluster0.dxlrj6w.mongodb.net/sample?retryWrites=true&w=majority",
+  "LOGGING_ENABLED" : true,
+  "STRIPE_PAYMENT_KEY" : "pk_test_51BTUDGJAJfZb9HrerereEBwDg86TN1KNprHjkfipXmEDMb0gSCassK5T3ZfxsAbcgKVmAIXF7oZ6ItlZZbXO6idTHE67IM007EwQ4uN3"
+}

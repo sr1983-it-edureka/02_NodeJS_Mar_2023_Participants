@@ -1,0 +1,35 @@
+
+<body>
+
+  <h2>My Fav Movies</h2>
+
+  <ul>
+  <% favMovies.forEach( (favMovie) => { %>
+
+    <li><%= favMovie %></li>
+
+  <% }) %>
+  </ul>
+
+  <h2>My Fav Songs</h2>
+  <ul>
+    <li>Enya Songs</li>
+    <li>Visitor - ABBA</li>
+    <li>Soldier - ABBA</li>
+  </ul>
+
+  <h2>My Hobbies</h2>
+
+  <% const displayMyHobbies = false;
+
+    if (displayMyHobbies){ %>
+
+    <ul>
+      <li>Music</li>
+      <li>Cooking</li>
+    </ul>
+  <% } %>
+
+  <p><%= title %></p>
+
+</body>

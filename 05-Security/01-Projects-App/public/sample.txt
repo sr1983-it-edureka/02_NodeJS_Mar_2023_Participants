@@ -1,0 +1,2 @@
+This file demonstrates the client access to the default public 
+folder
