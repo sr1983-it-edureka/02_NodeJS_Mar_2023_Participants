@@ -27,7 +27,7 @@ app.get("/ejs2", (req, res) => {
   res.render("ejs-page-include-demo");
 })
 
-const PORT = 9999;
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
   console.log(`Server started and running at port ${PORT}`);
