@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "mongdb-connector": "^1.0.0"
+  }
+}

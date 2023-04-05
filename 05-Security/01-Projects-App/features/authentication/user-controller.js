@@ -56,8 +56,17 @@ const login = async (req, res) => {
   // JWT Token -> 
 }
 
-const logout = () => {
+const logout = (req, res) => {
 
+  console.log('Logouut called..')
+  res.cookie("JWT", "", {
+    maxAge : 1
+  })
+
+  res.status(200).json({
+      message : "Signout Success"
+    }
+  )
 }
 
 module.exports = {register, login, logout};

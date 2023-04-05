@@ -29,6 +29,11 @@
       <div id="errorMessages">
       </div>
 
+      <br/><br/>
+      <br/><br/>
+  
+      <input id="sign-out-button" type="button" value="Sign out"/> 
+
     </form>  
   </div>
 </body>
@@ -36,6 +41,45 @@
 <script>
 
   const form = document.querySelector("form");
+
+
+  // Signout function - BEGIN
+
+  const signOutButton = document.getElementById("sign-out-button");
+
+  signOutButton.addEventListener("click", async (event) => {
+
+    try{
+          const response = await fetch("/projects/auth/logout", {
+          method : "GET"
+          });
+
+          console.log(`Status Code is ${response.status}`);
+
+          const responseBody = await response.json();
+          console.log(responseBody);
+
+          if (response.status === 400){
+              // Error Scenario
+
+              errorMessagesElement.textContent =
+              JSON.stringify(responseBody);
+          }else{
+
+            // Success Scenario
+            location.assign("/sign-in.html");
+          }
+
+          }catch (error){
+            console.log(error);
+            errorMessagesElement.textContent = 
+            JSON.stringify(error);
+          }    
+    
+  });
+
+  // END
+
 
   form.addEventListener("submit", async (event) => {
 

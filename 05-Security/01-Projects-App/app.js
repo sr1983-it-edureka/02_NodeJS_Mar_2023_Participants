@@ -3,6 +3,7 @@ const {authenticationRouter} =
 
 const {demoCookiesRouter} = require("./features/demo-cookies/router");
 const {projectRouter} = require("./features/projects/router");
+const {productRouter} = require("./features/products/router");
 
 
 require("dotenv").config();
@@ -21,6 +22,7 @@ app.use(cookieParser())
 app.use(authenticationRouter);
 app.use(demoCookiesRouter);
 app.use(projectRouter);
+app.use(productRouter);
 
 const MONGODB_URL = process.env.MONGODB_URL;
 
