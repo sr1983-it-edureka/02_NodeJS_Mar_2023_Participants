@@ -10,7 +10,7 @@ app.get("/hello", (req, res) => {
   res.send("Sending plain text content");
 });
 
-const PORT = process.env.PORT;
+const PORT = 9999;
 
 app.get("/ejs", (req, res) => {
 
