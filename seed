@@ -1,0 +1,111 @@
+
+
+const {exec} = require("child_process");
+
+// const command = "dir C:\\";
+// const command = "abc";
+// notepad.exe
+const command = "dir /abcdef";
+
+exec(command, (error, stdout, stderr) => {
+
+  if (error){
+    console.log("Command execution Error " + error);
+    return;
+  }
+
+  if(stderr){
+    console.log("Command is recognized, but the execution of the command has failed");    
+    console.error(stderr);
+    return;
+  }
+
+  console.log("Command execution SUCCESSFUL");
+  console.log("START")
+
+  console.log(stdout);
+
+  console.log("END");
+})
+
+---
+
+
+
+const {spawn}  = require("child_process");
+
+const command = "node";
+const arguments = ["loop-time-display.js"]
+
+const loopTimeDisplayProcess = spawn(command, arguments);
+
+
+loopTimeDisplayProcess.stdout.on('data', (data) => {
+  console.log(data.toString());    
+})
+
+loopTimeDisplayProcess.stderr.on('data', (data) => {
+  console.log(data.toString());    
+})
+
+
+loopTimeDisplayProcess.on('exit', (code) => {
+  console.log('Child Process exited with code ' + code);
+})
+
+
+--
+
+
+
+
+const twoSeconds = 2 * 1000;
+
+const interval = setInterval(() => {
+  console.log(new Date());
+
+  // if (interval._)
+}, 
+twoSeconds);
+
+
+--
+
+
+
+
+process.on('message', (message, parentHandle) => {
+
+    console.log("Received message from parent" + parentHandle);
+    console.log(message);
+})
+
+process.send({
+  id: 1,
+  source: 'Child Process',
+  message: 'I am your child and sending a message to you'
+})
+
+
+--
+
+
+
+
+const cpModule = require("child_process");
+
+
+const childProcessInstance = cpModule.fork("child.js");
+
+childProcessInstance.send({
+  id: 1,
+  source: 'Parent',
+  message: 'I am your parent, sending a message to you'
+})
+
+childProcessInstance.on('message', (message, handle) => {
+
+  console.log("Received message from my child" + handle);
+  console.log(message);
+
+})
