@@ -1,111 +1,113 @@
 
+const WebSocket = require("ws");
+const uuid = require("uuid");
 
-const {exec} = require("child_process");
+let clients = new Map();
 
-// const command = "dir C:\\";
-// const command = "abc";
-// notepad.exe
-const command = "dir /abcdef";
+const PORT = 9999;
+let INDEX = 1;
 
-exec(command, (error, stdout, stderr) => {
+const server = new WebSocket.Server({
+  port: PORT
+}, () => {
+  console.log(`Server started and listening at port ${PORT}`);
+})
 
-  if (error){
-    console.log("Command execution Error " + error);
-    return;
+server.on("connection", (client) => {
+
+  let clientIndex = INDEX;
+  INDEX ++;
+
+  console.log(`Client Index + ${clientIndex}`);
+
+  client.id = uuid.v4();
+  client.displayName = `client- ${clientIndex}`; 
+
+
+  console.log(`New Client has connected to Server, ${client.id}`);
+  console.log(`Display name set as ${client.displayName}`);
+  console.log();
+
+  client.onmessage = (messageEvent) => {
+
+    const data = messageEvent.data;
+    console.log(`Message received ${data}`);
+
+
+    const clients = server.clients;
+    clients.forEach( (memberClient) => {
+
+      if (memberClient !== client){
+
+        const newData = `[${client.displayName}] ${data}`;
+        memberClient.send(newData);
+      }
+    })
+
+    
   }
 
-  if(stderr){
-    console.log("Command is recognized, but the execution of the command has failed");    
-    console.error(stderr);
-    return;
-  }
 
-  console.log("Command execution SUCCESSFUL");
-  console.log("START")
 
-  console.log(stdout);
-
-  console.log("END");
 })
 
 ---
 
 
+<html>
 
-const {spawn}  = require("child_process");
+  <body>
 
-const command = "node";
-const arguments = ["loop-time-display.js"]
+    <h2>Web Sockets - Demo</h2>
 
-const loopTimeDisplayProcess = spawn(command, arguments);
+    <textarea id = "messages" rows="30" cols="70"></textarea>
+    <br><br>
 
+    <input type="text" id="messageBox" placeholder="Type your message here" style="width: 500px;">
+    <br><br>
 
-loopTimeDisplayProcess.stdout.on('data', (data) => {
-  console.log(data.toString());    
-})
+    <button id="send" title="Send">
+      Send Message
+    </button>
 
-loopTimeDisplayProcess.stderr.on('data', (data) => {
-  console.log(data.toString());    
-})
+  </body>
 
+  <script>
 
-loopTimeDisplayProcess.on('exit', (code) => {
-  console.log('Child Process exited with code ' + code);
-})
+    const ws = new WebSocket("ws://localhost:9999");
 
+    const sendButton = document.getElementById("send");
+    const messageBoxTextField = document.getElementById("messageBox");
+    const messagesTextArea = document.getElementById("messages");
 
---
+    ws.onopen = () => {
+      console.log("Connected successfully to Server");
+    }
 
+    ws.onmessage = (messsageEvent) => {
+      const data = messsageEvent.data;
+      populateInTextArea(data);
+    }
 
+    sendButton.onclick = function() {
 
+      const message = `${messageBoxTextField.value}`;
 
-const twoSeconds = 2 * 1000;
-
-const interval = setInterval(() => {
-  console.log(new Date());
-
-  // if (interval._)
-}, 
-twoSeconds);
-
-
---
-
-
-
-
-process.on('message', (message, parentHandle) => {
-
-    console.log("Received message from parent" + parentHandle);
-    console.log(message);
-})
-
-process.send({
-  id: 1,
-  source: 'Child Process',
-  message: 'I am your child and sending a message to you'
-})
+      ws.send(message);
+      populateInTextArea('YOU ->' + message);
+    }
 
 
---
+    function populateInTextArea(message){
 
+      let tempContent = messagesTextArea.textContent;
 
+      tempContent += "\n" + message;
+      messagesTextArea.textContent = tempContent;
 
+      messageBoxTextField.value = "";
+    }
 
-const cpModule = require("child_process");
+  </script>
 
-
-const childProcessInstance = cpModule.fork("child.js");
-
-childProcessInstance.send({
-  id: 1,
-  source: 'Parent',
-  message: 'I am your parent, sending a message to you'
-})
-
-childProcessInstance.on('message', (message, handle) => {
-
-  console.log("Received message from my child" + handle);
-  console.log(message);
-
-})
+</html>
